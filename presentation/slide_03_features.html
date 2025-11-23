@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionalidades Principais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A1628;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #0A1628 0%, #0F1F2E 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+        
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #00D9FF);
+            margin-bottom: 24px;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: 40px;
+            padding: 0 60px;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .features-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        
+        .feature-number {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FF6B35, #FF8A50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0A1628;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+        
+        .feature-content {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00D9FF;
+            margin-bottom: 4px;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            color: #E8F4F8;
+            line-height: 1.4;
+            opacity: 0.95;
+        }
+        
+        .image-column {
+            flex: 0 0 380px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .features-image {
+            width: 100%;
+            height: auto;
+            max-height: 420px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.2));
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <div class="title">Funcionalidades Principais</div>
+            <div class="title-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="features-column">
+                <div class="feature-item">
+                    <div class="feature-number">1</div>
+                    <div class="feature-content">
+                        <div class="feature-title">Cadastro de Produtos</div>
+                        <div class="feature-description">Registre produtos com nome, descrição, categoria, preço e quantidade mínima com validações automáticas</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-number">2</div>
+                    <div class="feature-content">
+                        <div class="feature-title">Controle de Movimentações</div>
+                        <div class="feature-description">Registre entradas e saídas de estoque com validação automática de quantidade disponível</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-number">3</div>
+                    <div class="feature-content">
+                        <div class="feature-title">Alertas de Baixo Estoque</div>
+                        <div class="feature-description">Receba alertas automáticos quando produtos atingem quantidade mínima configurada</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-number">4</div>
+                    <div class="feature-content">
+                        <div class="feature-title">Histórico de Movimentações</div>
+                        <div class="feature-description">Acesse histórico completo e rastreável de todas as operações de estoque</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-number">5</div>
+                    <div class="feature-content">
+                        <div class="feature-title">Dashboard e Relatórios</div>
+                        <div class="feature-description">Visualize resumos, gráficos de movimentação e indicadores principais em tempo real</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="image-column">
+                <img src="/home/ubuntu/stock_control_app/slide_images/slide3_features.png" alt="Dashboard de Funcionalidades" class="features-image">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

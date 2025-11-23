@@ -1,0 +1,108 @@
+{
+  "project_info": {
+    "title": "Stock Control Application",
+    "created": 1763843124.5784721,
+    "last_updated": 1763843336.2844179,
+    "total_slides": 12
+  },
+  "slides": {
+    "slide_01_title": "edited",
+    "slide_02_problem": "edited",
+    "slide_03_features": "edited",
+    "slide_04_architecture": "edited",
+    "slide_05_database": "edited",
+    "slide_06_demo": "edited",
+    "slide_07_rules": "edited",
+    "slide_08_stories": "edited",
+    "slide_09_oop": "edited",
+    "slide_10_patterns": "edited",
+    "slide_11_future": "edited",
+    "slide_12_conclusion": "edited"
+  },
+  "outline": [
+    {
+      "id": "slide_01_title",
+      "title": "Stock Control Application",
+      "summary": "Slide de título com apresentação do projeto, instituição e período. Demonstra o tema principal: Aplicação Web de Controle de Estoque em Java Spring Boot.",
+      "image_plan": "/home/ubuntu/stock_control_app/slide_images/slide1_title.png - Image 1 is a title slide that perfectly matches the main title and subtitle of the presentation.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_02_problem",
+      "title": "O Desafio do Controle de Estoque",
+      "summary": "Apresenta os problemas enfrentados por lojistas na gestão manual de estoque: erros de contagem, falta de relatórios, impossibilidade de rastreamento. Contextualiza a necessidade da solução.",
+      "image_plan": "/home/ubuntu/stock_control_app/slide_images/slide2_problem.png - Image 2 illustrates common problems in warehouse inventory management, directly addressing the \"Problema e Contexto\" of the slide.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_03_features",
+      "title": "Funcionalidades Principais",
+      "summary": "Descreve as cinco funcionalidades implementadas: cadastro de produtos, controle de movimentações, alertas de baixo estoque, histórico de movimentações e dashboard com relatórios.",
+      "image_plan": "/home/ubuntu/stock_control_app/slide_images/slide3_features.png - Image 3 is a dashboard/inventory management interface, which visually represents the core functionalities like product listing, stock levels, and stock value.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_04_architecture",
+      "title": "Arquitetura Técnica",
+      "summary": "Apresenta a stack tecnológico (Java 17, Spring Boot 3.1.5, MySQL, Maven) e o padrão MVC com camadas bem definidas (Model, View, Controller, Service, Repository).",
+      "image_plan": "/home/ubuntu/stock_control_app/slide_images/slide4_architecture.png - Image 4 shows a layered architecture (Controller, Service, Repository, Database) and mentions Java Spring Boot, which is highly relevant to the slide's content on architecture and technology stack.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_05_database",
+      "title": "Modelo de Dados",
+      "summary": "Explica as três entidades principais (User, Product, StockMovement) e seus relacionamentos. Mostra como os dados são estruturados no banco de dados MySQL.",
+      "image_plan": "/home/ubuntu/stock_control_app/slide_images/slide5_database.png - Image 5 is a database schema diagram, which directly illustrates the \"Modelo de Dados\" and the relationships between Users, Products, and StockMovements.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_06_demo",
+      "title": "Demonstração Ao Vivo",
+      "summary": "Roteiro da demonstração prática: acesso à aplicação, dashboard, cadastro de produto, listagem, movimentação, histórico, alertas e relatórios.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_07_rules",
+      "title": "Regras de Negócio",
+      "summary": "Apresenta as validações e regras implementadas: preço positivo, quantidade válida, saída não pode exceder estoque, alertas de baixo estoque, integridade de dados.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_08_stories",
+      "title": "Histórias de Usuário",
+      "summary": "Descreve as quatro histórias de usuário principais com critérios de aceitação: gerenciar produtos, controlar estoque, receber alertas, gerar relatórios.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_09_oop",
+      "title": "Conceitos de POO Aplicados",
+      "summary": "Explica como os conceitos de Programação Orientada a Objetos foram aplicados: encapsulamento, herança, polimorfismo, abstração e composição.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_10_patterns",
+      "title": "Padrões de Design e Boas Práticas",
+      "summary": "Apresenta os padrões de design utilizados: Repository Pattern, Service Layer Pattern, Dependency Injection, Validation Pattern e Transaction Management.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_11_future",
+      "title": "Melhorias Futuras",
+      "summary": "Descreve o roadmap de melhorias em curto, médio e longo prazo: autenticação, gráficos, API REST, deploy em cloud, aplicativo mobile.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_12_conclusion",
+      "title": "Conclusão e Aprendizados",
+      "summary": "Resume o projeto, destaca os aprendizados principais, o impacto potencial e agradecimentos. Encerra a apresentação de forma profissional.",
+      "image_plan": "",
+      "slide_template_key": ""
+    }
+  ]
+}

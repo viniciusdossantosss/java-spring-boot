@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regras de Negócio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A1628;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #0A1628 0%, #0F1F2E 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+        
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #00D9FF);
+            margin-bottom: 24px;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 0 60px;
+            flex: 1;
+            align-content: start;
+        }
+        
+        .rule-category {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        
+        .category-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #FF6B35, #FF8A50);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0A1628;
+            font-size: 14px;
+        }
+        
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00D9FF;
+            letter-spacing: 0.3px;
+        }
+        
+        .rule-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding-top: 8px;
+        }
+        
+        .rule-indicator {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            background: #1E88E5;
+            border-radius: 50%;
+            margin-top: 6px;
+        }
+        
+        .rule-text {
+            font-size: 14px;
+            color: #E8F4F8;
+            line-height: 1.4;
+        }
+        
+        .category-1 .category-icon {
+            background: linear-gradient(135deg, #FF6B35, #FF8A50);
+        }
+        
+        .category-2 .category-icon {
+            background: linear-gradient(135deg, #1E88E5, #42A5F5);
+        }
+        
+        .category-3 .category-icon {
+            background: linear-gradient(135deg, #00D9FF, #26C6DA);
+        }
+        
+        .category-4 .category-icon {
+            background: linear-gradient(135deg, #FF6B35, #FF9100);
+        }
+        
+        .category-2 .rule-indicator {
+            background: #FF6B35;
+        }
+        
+        .category-3 .rule-indicator {
+            background: #FF6B35;
+        }
+        
+        .category-4 .rule-indicator {
+            background: #1E88E5;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <div class="title">Regras de Negócio</div>
+            <div class="title-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- Validações de Produto -->
+            <div class="rule-category category-1">
+                <div class="category-header">
+                    <div class="category-icon">✓</div>
+                    <div class="category-title">Validações de Produto</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Preço não pode ser negativo</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Quantidade em estoque não pode ser negativa</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Quantidade mínima deve ser ≥ 0</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Nome do produto é obrigatório</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Categoria do produto é obrigatória</div>
+                </div>
+            </div>
+            
+            <!-- Validações de Movimentação -->
+            <div class="rule-category category-2">
+                <div class="category-header">
+                    <div class="category-icon">→</div>
+                    <div class="category-title">Validações de Movimentação</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Quantidade deve ser positiva</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Saída não pode exceder quantidade disponível</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Movimentação deve estar associada a produto válido</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Motivo é opcional mas recomendado</div>
+                </div>
+            </div>
+            
+            <!-- Alertas e Notificações -->
+            <div class="rule-category category-3">
+                <div class="category-header">
+                    <div class="category-icon">!</div>
+                    <div class="category-title">Alertas e Notificações</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Alerta disparado quando quantidade ≤ minQuantity</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Alerta exibido no dashboard para ação imediata</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Apenas admin pode deletar produtos</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Apenas admin pode alterar preços</div>
+                </div>
+            </div>
+            
+            <!-- Integridade de Dados -->
+            <div class="rule-category category-4">
+                <div class="category-header">
+                    <div class="category-icon">🔒</div>
+                    <div class="category-title">Integridade de Dados</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Movimentação é imutável após criação</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Histórico mantido para auditoria</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Relacionamentos com integridade referencial</div>
+                </div>
+                
+                <div class="rule-item">
+                    <div class="rule-indicator"></div>
+                    <div class="rule-text">Validações em múltiplos níveis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

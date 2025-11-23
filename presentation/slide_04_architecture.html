@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitetura Técnica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A1628;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #0A1628 0%, #0F1F2E 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+        
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #00D9FF);
+            margin-bottom: 24px;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 60px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .image-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .architecture-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.2));
+        }
+        
+        .tech-stack-section {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .tech-table {
+            width: 100%;
+            max-width: 700px;
+            border-collapse: collapse;
+            background: rgba(15, 31, 46, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+        
+        .tech-table thead {
+            background: rgba(30, 136, 229, 0.15);
+            border-bottom: 2px solid #1E88E5;
+        }
+        
+        .tech-table th {
+            padding-top: 12px;
+            padding-left: 16px;
+            padding-right: 16px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #00D9FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tech-table td {
+            padding-top: 10px;
+            padding-left: 16px;
+            padding-right: 16px;
+            font-size: 14px;
+            color: #E8F4F8;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        }
+        
+        .tech-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .tech-table tbody tr:nth-child(odd) {
+            background: rgba(0, 217, 255, 0.03);
+        }
+        
+        .tech-layer {
+            color: #FF6B35;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <div class="title">Arquitetura Técnica</div>
+            <div class="title-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="image-section">
+                <img src="/home/ubuntu/stock_control_app/slide_images/slide4_architecture.png" alt="Arquitetura MVC Spring Boot" class="architecture-image">
+            </div>
+            
+            <div class="tech-stack-section">
+                <table class="tech-table">
+                    <thead>
+                        <tr>
+                            <th>Camada</th>
+                            <th>Tecnologia</th>
+                            <th>Versão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tech-layer">Linguagem</span></td>
+                            <td>Java</td>
+                            <td>17</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tech-layer">Framework Web</span></td>
+                            <td>Spring Boot</td>
+                            <td>3.1.5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tech-layer">Banco de Dados</span></td>
+                            <td>MySQL</td>
+                            <td>5.7+</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tech-layer">ORM</span></td>
+                            <td>Spring Data JPA</td>
+                            <td>3.1.5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tech-layer">Build Tool</span></td>
+                            <td>Maven</td>
+                            <td>3.6.0+</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tech-layer">Template Engine</span></td>
+                            <td>Thymeleaf</td>
+                            <td>3.1.1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

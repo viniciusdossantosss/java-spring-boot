@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusão e Aprendizados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A1628;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #0A1628 0%, #0F1F2E 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+        
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #00D9FF);
+            margin-bottom: 24px;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 0 60px;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #00D9FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        
+        .section-divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #FF6B35, transparent);
+        }
+        
+        .summary-text {
+            font-size: 15px;
+            color: #E8F4F8;
+            line-height: 1.5;
+        }
+        
+        .learnings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .learning-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        
+        .learning-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35, #FF8A50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #0A1628;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        
+        .learning-text {
+            font-size: 14px;
+            color: #E8F4F8;
+            line-height: 1.4;
+        }
+        
+        .impact-box {
+            background: rgba(30, 136, 229, 0.1);
+            border-left: 3px solid #1E88E5;
+            padding-top: 12px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+        
+        .impact-text {
+            font-size: 14px;
+            color: #E8F4F8;
+            line-height: 1.5;
+        }
+        
+        .closing-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            text-align: center;
+            margin-top: 8px;
+        }
+        
+        .closing-text {
+            font-size: 15px;
+            color: #E8F4F8;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .closing-highlight {
+            font-size: 14px;
+            color: #FF6B35;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <div class="title">Conclusão e Aprendizados</div>
+            <div class="title-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- Resumo do Projeto -->
+            <div class="section">
+                <div class="section-title">Resumo do Projeto</div>
+                <div class="section-divider"></div>
+                <div class="summary-text">A Stock Control Application demonstra a aplicação prática de conceitos fundamentais de Programação Orientada a Objetos em um projeto web real. O projeto implementa uma arquitetura robusta, escalável e mantível, com todas as funcionalidades essenciais para gerenciamento de estoque.</div>
+            </div>
+            
+            <!-- Aprendizados Principais -->
+            <div class="section">
+                <div class="section-title">Aprendizados Principais</div>
+                <div class="section-divider"></div>
+                <div class="learnings-grid">
+                    <div class="learning-item">
+                        <div class="learning-icon">1</div>
+                        <div class="learning-text">Aplicação de padrões de design em projetos reais</div>
+                    </div>
+                    
+                    <div class="learning-item">
+                        <div class="learning-icon">2</div>
+                        <div class="learning-text">Desenvolvimento com Spring Boot e Spring Data JPA</div>
+                    </div>
+                    
+                    <div class="learning-item">
+                        <div class="learning-icon">3</div>
+                        <div class="learning-text">Modelagem de dados relacional e integridade</div>
+                    </div>
+                    
+                    <div class="learning-item">
+                        <div class="learning-icon">4</div>
+                        <div class="learning-text">Implementação de regras de negócio e validações</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Impacto Potencial -->
+            <div class="section">
+                <div class="section-title">Impacto Potencial</div>
+                <div class="section-divider"></div>
+                <div class="impact-box">
+                    <div class="impact-text">A aplicação pode ser utilizada por pequenas e médias lojas para melhorar o controle de estoque, reduzindo custos operacionais em até 30%, melhorando a eficiência e satisfação do cliente.</div>
+                </div>
+            </div>
+            
+            <!-- Fechamento -->
+            <div class="closing-section">
+                <div class="closing-text">Agradeço à instituição Wyden | UniRuy pela oportunidade de aprender e aplicar conceitos importantes de programação em um projeto prático e significativo.</div>
+                <div class="closing-highlight">Obrigado pela atenção!</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Desafio do Controle de Estoque</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A1628;
+        }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #0A1628 0%, #0F1F2E 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 217, 255, 0.05) 25%, rgba(0, 217, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 217, 255, 0.05) 75%, rgba(0, 217, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            padding-top: 40px;
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+        
+        .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #00D9FF);
+            margin-bottom: 30px;
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: 40px;
+            padding: 0 60px;
+            align-items: flex-start;
+            flex: 1;
+        }
+        
+        .image-column {
+            flex: 0 0 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .problem-image {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.2));
+        }
+        
+        .text-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+        
+        .problem-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .problem-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: #FF6B35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+        
+        .problem-icon::after {
+            content: '✓';
+            color: #0A1628;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .problem-text {
+            font-size: 16px;
+            color: #E8F4F8;
+            line-height: 1.5;
+        }
+        
+        .context-box {
+            background: rgba(30, 136, 229, 0.1);
+            border-left: 3px solid #1E88E5;
+            padding-top: 12px;
+            padding-left: 16px;
+            padding-right: 16px;
+            margin-top: 12px;
+        }
+        
+        .context-label {
+            font-size: 12px;
+            color: #1E88E5;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        
+        .context-text {
+            font-size: 15px;
+            color: #E8F4F8;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <div class="title">O Desafio do Controle de Estoque</div>
+            <div class="title-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="image-column">
+                <img src="/home/ubuntu/stock_control_app/slide_images/slide2_problem.png" alt="Problemas de Controle de Estoque" class="problem-image">
+            </div>
+            
+            <div class="text-column">
+                <div class="problem-item">
+                    <div class="problem-icon"></div>
+                    <div class="problem-text">Erros de contagem e perda de produtos</div>
+                </div>
+                
+                <div class="problem-item">
+                    <div class="problem-icon"></div>
+                    <div class="problem-text">Dificuldade em identificar produtos com baixo estoque</div>
+                </div>
+                
+                <div class="problem-item">
+                    <div class="problem-icon"></div>
+                    <div class="problem-text">Impossibilidade de gerar relatórios de movimentação</div>
+                </div>
+                
+                <div class="problem-item">
+                    <div class="problem-icon"></div>
+                    <div class="problem-text">Falta de rastreabilidade das operações</div>
+                </div>
+                
+                <div class="problem-item">
+                    <div class="problem-icon"></div>
+                    <div class="problem-text">Perda de tempo em tarefas administrativas</div>
+                </div>
+                
+                <div class="context-box">
+                    <div class="context-label">Impacto Potencial</div>
+                    <div class="context-text">Empresas que implementam sistemas de gestão de estoque reduzem custos operacionais em até 30%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

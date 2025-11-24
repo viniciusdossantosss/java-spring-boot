@@ -184,9 +184,9 @@
             <div class="summary-card">
                 <h3>Período</h3>
                 <p>
-                    <span th:if="${startDate}" th:text="${#temporals.format(startDate, 'dd/MM/yyyy')}"></span>
+                    <span th:if="${startDate}" th:text="${startDate}"></span>
                     <span th:if="${startDate and endDate}"> até </span>
-                    <span th:if="${endDate}" th:text="${#temporals.format(endDate, 'dd/MM/yyyy')}"></span>
+                    <span th:if="${endDate}" th:text="${endDate}"></span>
                     <span th:unless="${startDate or endDate}">Todos os registros</span>
                 </p>
             </div>

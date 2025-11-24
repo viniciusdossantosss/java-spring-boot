@@ -66,13 +66,19 @@
             <h3>Detalhes do Erro:</h3>
             <p><strong>Mensagem:</strong> <span th:text="${error.message}"></span></p>
             <p><strong>Tipo:</strong> <span th:text="${error.type}"></span></p>
-            <p><strong>Status:</strong> <span th:text="${status}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${status}"></span>
             
             <div th:if="${error.exception}" style="margin-top: 15px;">
                 <h4>Exceção:</h4>
                 <pre style="background: #f1f1f1; padding: 10px; border-radius: 4px; overflow-x: auto;" 
                       th:text="${error.exception}"></pre>
             </div>
+        </div>
+        
+        <div class="error-details" th:unless="${error}">
+            <h3>Detalhes do Erro:</h3>
+            <p><strong>Mensagem:</strong> <span th:text="${message}"></span></p>
+            <p><strong>Status:</strong> <span th:text="${status}"></span></p>
         </div>
         
         <div style="margin-top: 30px;">

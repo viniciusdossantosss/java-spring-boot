@@ -64,10 +64,10 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id,
                                RedirectAttributes redirectAttributes) {
         try {
-            redirectAttributes.addFlashAttribute("message", "Produto deletado com sucesso!");
+            redirectAttributes.addFlashAttribute("message", "Produto excluído com sucesso!");
             return "redirect:/products";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erro ao deletar produto: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Erro ao excluir produto: " + e.getMessage());
             return "redirect:/products";
         }
     }

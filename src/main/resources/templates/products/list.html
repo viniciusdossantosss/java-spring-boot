@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Control - Products</title>
+    <title>Controle de Estoque - Produtos</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,10 +89,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Products Management</h1>
+            <h1>Gerenciamento de Produtos</h1>
             <div>
-                <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
-                <a href="/products/new" class="btn">Add Product</a>
+                <a href="/dashboard" class="btn btn-secondary">Voltar ao Dashboard</a>
+                <a href="/products/new" class="btn">Adicionar Produto</a>
             </div>
         </div>
         
@@ -100,9 +100,9 @@
         <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
         
         <div class="empty-state">
-            <h3>No products found</h3>
-            <p>Start by adding your first product to the inventory.</p>
-            <a href="/products/new" class="btn">Add Your First Product</a>
+            <h3>Nenhum produto encontrado</h3>
+            <p>Comece adicionando seu primeiro produto ao estoque.</p>
+            <a href="/products/new" class="btn">Adicionar Seu Primeiro Produto</a>
         </div>
     </div>
 </body>

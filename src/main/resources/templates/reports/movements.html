@@ -170,10 +170,10 @@
             <div class="summary-card">
                 <h3>Período</h3>
                 <p>
-                    <span th:if="${startDate}" th:text="${startDate}"></span>
-                    <span th:if="${startDate and endDate}"> até </span>
-                    <span th:if="${endDate}" th:text="${endDate}"></span>
-                    <span th:unless="${startDate or endDate}">Todos os registros</span>
+                    <span th:if="${startDate != null and !startDate.isEmpty()}" th:text="${startDate}"></span>
+                    <span th:if="${startDate != null and !startDate.isEmpty() and endDate != null and !endDate.isEmpty()}"> até </span>
+                    <span th:if="${endDate != null and !endDate.isEmpty()}" th:text="${endDate}"></span>
+                    <span th:unless="${(startDate != null and !startDate.isEmpty()) or (endDate != null and !endDate.isEmpty())}">Todos os registros</span>
                 </p>
             </div>
         </div>

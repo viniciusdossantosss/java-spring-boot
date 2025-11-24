@@ -1,7 +1,10 @@
 services:
   - type: web
     name: stock-control-app
-    env: docker
+    env: java
     plan: free
-    dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    buildCommand: apt-get update && apt-get install -y maven && mvn clean package -DskipTests
+    startCommand: java -jar target/stock-control-app-1.0.0.jar
+    envVars:
+      - key: JAVA_VERSION
+        value: 17

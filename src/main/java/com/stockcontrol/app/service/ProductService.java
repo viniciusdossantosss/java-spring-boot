@@ -2,6 +2,7 @@ package com.stockcontrol.app.service;
 
 import com.stockcontrol.app.model.Product;
 import com.stockcontrol.app.model.User;
+import com.stockcontrol.app.model.Category;
 import com.stockcontrol.app.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class ProductService {
         return productRepository.findByUser(user);
     }
 
-    public List<Product> getProductsByCategory(User user, String category) {
+    public List<Product> findByUserAndCategory(User user, Category category) {
         return productRepository.findByUserAndCategory(user, category);
     }
 
@@ -71,7 +72,7 @@ public class ProductService {
         return productRepository.searchByName(user, name);
     }
 
-    public List<String> getCategories(User user) {
+    public List<Category> getCategories(User user) {
         return productRepository.findDistinctCategories(user);
     }
 

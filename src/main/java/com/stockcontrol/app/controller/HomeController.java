@@ -11,15 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    @GetMapping
-    public String home(HttpSession session) {
-        User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser != null) {
-            return "redirect:/dashboard";
-        }
-        return "redirect:/login";
-    }
-
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");

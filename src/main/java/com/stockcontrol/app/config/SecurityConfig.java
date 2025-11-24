@@ -22,8 +22,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**", "/api/debug/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**", "/api/debug/**", "/auth/**").permitAll()
+                .anyRequest().permitAll()  // Temporariamente permitir tudo
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")

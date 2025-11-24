@@ -1,10 +1,9 @@
 services:
   - type: web
     name: stock-control-app
-    env: java
+    env: docker
     plan: free
-    buildCommand: apt-get update && apt-get install -y maven && mvn clean package -DskipTests
-    startCommand: java -jar target/stock-control-app-1.0.0.jar
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: JAVA_VERSION
-        value: 17
+      - key: PORT
+        value: 8080

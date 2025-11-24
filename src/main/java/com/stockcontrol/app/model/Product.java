@@ -27,9 +27,9 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @NotBlank(message = "Categoria é obrigatória")
-    @Column(nullable = false, length = 100)
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     @NotNull(message = "Preço é obrigatório")
     @Positive(message = "Preço deve ser positivo")

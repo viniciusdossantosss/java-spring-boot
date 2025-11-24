@@ -17,6 +17,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.user = :user AND p.quantity <= p.minQuantity")
     List<Product> findLowStockProducts(@Param("user") User user);
     
+    @Query("SELECT COUNT(p) FROM Product p WHERE p.quantity <= p.minQuantity")
+    Long countLowStock();
+    
     Optional<Product> findByIdAndUser(Long id, User user);
     
     @Query("SELECT p FROM Product p WHERE p.user = :user AND LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")

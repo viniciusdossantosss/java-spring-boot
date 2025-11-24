@@ -58,7 +58,7 @@ public class ProductController {
                                @Valid @ModelAttribute Product product,
                                RedirectAttributes redirectAttributes) {
         try {
-            productService.update(id, product);
+            productService.updateProduct(product);
             redirectAttributes.addFlashAttribute("message", "Produto atualizado com sucesso!");
             return "redirect:/products";
         } catch (IllegalArgumentException e) {
@@ -71,7 +71,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id,
                                RedirectAttributes redirectAttributes) {
         try {
-            productService.delete(id);
+            productService.deleteProduct(id);
             redirectAttributes.addFlashAttribute("message", "Produto excluído com sucesso!");
             return "redirect:/products";
         } catch (Exception e) {

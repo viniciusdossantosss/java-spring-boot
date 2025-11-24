@@ -1,7 +1,6 @@
 package com.stockcontrol.app.controller;
 
 import com.stockcontrol.app.model.Product;
-import com.stockcontrol.app.model.Category;
 import com.stockcontrol.app.service.ProductService;
 import com.stockcontrol.app.service.CategoryService;
 import jakarta.validation.Valid;

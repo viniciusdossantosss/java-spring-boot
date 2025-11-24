@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Dashboard Analítico</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .stat-card p {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .chart-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chart-card h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        .alert-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .alert-section h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        .alert-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .alert-critical {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .alert-icon {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .refresh-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .refresh-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 Dashboard Analítico</h1>
+            <div>
+                <a href="/reports" class="btn btn-secondary">Voltar aos Relatórios</a>
+                <button onclick="location.reload()" class="btn">🔄 Atualizar</button>
+            </div>
+        </div>
+        
+        <!-- KPIs Principais -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total de Produtos</h3>
+                <p th:text="${totalProducts}">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Estoque Baixo</h3>
+                <p th:text="${lowStockCount}">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Valor em Estoque</h3>
+                <p>R$ <span th:text="${#numbers.formatDecimal(totalStockValue, 2, 2)}">0,00</span></p>
+            </div>
+            <div class="stat-card">
+                <h3>Movimentações Hoje</h3>
+                <p th:text="${todayMovements}">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Vendas Hoje</h3>
+                <p th:text="${todaySales}">0</p>
+            </div>
+        </div>
+        
+        <!-- Alertas -->
+        <div class="alert-section">
+            <h3>🚨 Alertas e Notificações</h3>
+            <div th:if="${lowStockCount > 0}">
+                <div class="alert-item alert-critical">
+                    <span class="alert-icon">⚠️</span>
+                    <div>
+                        <strong>Estoque Crítico:</strong> 
+                        <span th:text="${lowStockCount}"></span> produtos com estoque baixo ou zerado
+                    </div>
+                </div>
+            </div>
+            <div th:if="${todayMovements > 10}">
+                <div class="alert-item alert-warning">
+                    <span class="alert-icon">📊</span>
+                    <div>
+                        <strong>Alta Movimentação:</strong> 
+                        <span th:text="${todayMovements}"></span> movimentações registradas hoje
+                    </div>
+                </div>
+            </div>
+            <div th:if="${lowStockCount == 0 and todayMovements <= 10}">
+                <div class="alert-item" style="background-color: #d4edda; color: #155724;">
+                    <span class="alert-icon">✅</span>
+                    <div>
+                        <strong>Tudo OK!</strong> Não há alertas críticos no momento
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gráficos -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>📦 Produtos por Categoria</h3>
+                <div class="chart-container">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h3>🔄 Movimentações dos Últimos 7 Dias</h3>
+                <div class="chart-container">
+                    <canvas id="movementsChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h3>💰 Vendas dos Últimos 30 Dias</h3>
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h3>📊 Status do Estoque</h3>
+                <div class="chart-container">
+                    <canvas id="stockStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="refresh-btn" onclick="location.reload()" title="Atualizar Dashboard">
+        🔄
+    </button>
+
+    <script th:inline="javascript">
+        // Dados do Thymeleaf para JavaScript
+        const chartData = /*[[${chartData}]]*/ {};
+        
+        // Gráfico de Produtos por Categoria
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(chartData.productsByCategory || {}),
+                datasets: [{
+                    data: Object.values(chartData.productsByCategory || {}),
+                    backgroundColor: [
+                        '#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1',
+                        '#fd7e14', '#20c997', '#e83e8c', '#6c757d', '#17a2b8'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Gráfico de Movimentações
+        const movementsCtx = document.getElementById('movementsChart').getContext('2d');
+        new Chart(movementsCtx, {
+            type: 'line',
+            data: {
+                labels: Object.keys(chartData.movementsLast7Days || {}),
+                datasets: [{
+                    label: 'Movimentações',
+                    data: Object.values(chartData.movementsLast7Days || {}),
+                    borderColor: '#007bff',
+                    backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Gráfico de Vendas
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(chartData.salesLast30Days || {}),
+                datasets: [{
+                    label: 'Vendas',
+                    data: Object.values(chartData.salesLast30Days || {}),
+                    backgroundColor: '#28a745'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Gráfico de Status do Estoque
+        const stockStatusCtx = document.getElementById('stockStatusChart').getContext('2d');
+        const totalProducts = /*[[${totalProducts}]]*/ 0;
+        const lowStockCount = /*[[${lowStockCount}]]*/ 0;
+        const normalCount = totalProducts - lowStockCount;
+        
+        new Chart(stockStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Estoque Normal', 'Estoque Baixo'],
+                datasets: [{
+                    data: [normalCount, lowStockCount],
+                    backgroundColor: ['#28a745', '#ffc107']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+        
+        // Auto-refresh a cada 5 minutos
+        setTimeout(() => {
+            location.reload();
+        }, 300000);
+    </script>
+</body>
+</html>

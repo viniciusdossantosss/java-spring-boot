@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Estoque - Produtos</title>
+    <title>Controle de Estoque - Categorias</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -37,9 +37,16 @@
             border-radius: 4px;
             border: none;
             cursor: pointer;
+            margin-right: 10px;
         }
         .btn:hover {
             background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
         }
         .btn-secondary {
             background-color: #6c757d;
@@ -84,26 +91,57 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Gerenciamento de Produtos</h1>
+            <h1>Gerenciamento de Categorias</h1>
             <div>
                 <a href="/dashboard" class="btn btn-secondary">Voltar ao Dashboard</a>
-                <a href="/products/new" class="btn">Adicionar Produto</a>
+                <a href="/categories/new" class="btn">Adicionar Categoria</a>
             </div>
         </div>
         
         <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
         <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
         
-        <div class="empty-state">
-            <h3>Nenhum produto encontrado</h3>
-            <p>Comece adicionando seu primeiro produto ao estoque.</p>
-            <a href="/products/new" class="btn">Adicionar Seu Primeiro Produto</a>
-            <a href="/categories" class="btn btn-secondary">Gerenciar Categorias</a>
+        <table th:if="${categories.size() > 0}">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Produtos</th>
+                    <th>Data de Criação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.name}"></td>
+                    <td th:text="${category.description ?: 'Sem descrição'}"></td>
+                    <td th:text="${category.products.size()}"></td>
+                    <td th:text="${#temporals.format(category.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td>
+                        <div class="actions">
+                            <a th:href="@{/categories/{id}/edit(id=${category.id})}" class="btn">Editar</a>
+                            <form th:action="@{/categories/{id}/delete(id=${category.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${categories.size() == 0}" class="empty-state">
+            <h3>Nenhuma categoria encontrada</h3>
+            <p>Comece adicionando sua primeira categoria.</p>
+            <a href="/categories/new" class="btn">Adicionar Sua Primeira Categoria</a>
         </div>
     </div>
 </body>

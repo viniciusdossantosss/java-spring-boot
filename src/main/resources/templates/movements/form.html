@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Movimentação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .product-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .product-info h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .product-info p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .entry {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .exit {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 th:text="${title}"></h1>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+        
+        <div class="product-info">
+            <h3>Informações do Produto</h3>
+            <p><strong>Nome:</strong> <span th:text="${movement.product.name}"></span></p>
+            <p><strong>Estoque Atual:</strong> <span th:text="${movement.product.quantity}"></span></p>
+            <p><strong>Estoque Mínimo:</strong> <span th:text="${movement.product.minQuantity}"></span></p>
+            <p th:if="${movement.product.isLowStock()}" style="color: #dc3545; font-weight: bold;">
+                ⚠️ Produto com estoque baixo!
+            </p>
+        </div>
+        
+        <div th:classappend="${movement.type.name() == 'ENTRY' ? 'entry' : 'exit'}">
+            <strong th:text="${movement.type.label}"></strong> - 
+            <span th:text="${movement.type.name() == 'ENTRY' ? 'Esta operação aumentará o estoque do produto.' : 'Esta operação diminuirá o estoque do produto.'}"></span>
+        </div>
+        
+        <form th:action="@{/movements/{type}(type=${movement.type.name() == 'ENTRY' ? 'entry' : 'exit'})}" 
+              th:object="${movement}" method="post">
+            <input type="hidden" th:field="*{product.id}" />
+            <input type="hidden" th:field="*{type}" />
+            
+            <div class="form-group">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" id="quantity" th:field="*{quantity}" min="1" required>
+                <small th:if="${movement.type.name() == 'EXIT'}">
+                    Quantidade máxima disponível: <span th:text="${movement.product.quantity}"></span>
+                </small>
+            </div>
+            
+            <div class="form-group">
+                <label for="reason">Motivo da Movimentação:</label>
+                <textarea id="reason" th:field="*{reason}" placeholder="Ex: Compra de fornecedor, Venda para cliente, Ajuste de inventário, etc."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn" th:text="${movement.type.name() == 'ENTRY' ? 'Registrar Entrada' : 'Registrar Saída'}"></button>
+                <a href="/products" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

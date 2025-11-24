@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Movimentações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .movement-type {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .entry {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .exit {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .filter-section form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .filter-section input, .filter-section select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Histórico de Movimentações</h1>
+            <a href="/dashboard" class="btn btn-secondary">Voltar ao Dashboard</a>
+        </div>
+        
+        <div class="filter-section">
+            <form>
+                <input type="date" name="startDate" placeholder="Data Início">
+                <input type="date" name="endDate" placeholder="Data Fim">
+                <select name="type">
+                    <option value="">Todos os tipos</option>
+                    <option value="ENTRY">Entradas</option>
+                    <option value="EXIT">Saídas</option>
+                </select>
+                <button type="submit" class="btn">Filtrar</button>
+            </form>
+        </div>
+        
+        <table th:if="${movements.size() > 0}">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Produto</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                    <th>Motivo</th>
+                    <th>Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="movement : ${movements}">
+                    <td th:text="${#temporals.format(movement.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${movement.product.name}"></td>
+                    <td>
+                        <span class="movement-type" 
+                              th:classappend="${movement.type.name() == 'ENTRY' ? 'entry' : 'exit'}"
+                              th:text="${movement.type.label}"></span>
+                    </td>
+                    <td th:text="${movement.quantity}"></td>
+                    <td th:text="${movement.reason ?: 'Não informado'}"></td>
+                    <td th:text="${movement.user.username}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div th:if="${movements.size() == 0}" class="empty-state">
+            <h3>Nenhuma movimentação encontrada</h3>
+            <p>Não há registros de movimentação de estoque no período selecionado.</p>
+        </div>
+    </div>
+</body>
+</html>

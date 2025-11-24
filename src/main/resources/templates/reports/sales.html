@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque - Relatório de Vendas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .filter-section form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .filter-section input, .filter-section select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .summary-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .summary-card p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .sale-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .completed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .sale-details {
+            font-size: 12px;
+            color: #666;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Relatório de Vendas</h1>
+            <div>
+                <a href="/reports" class="btn btn-secondary">Voltar aos Relatórios</a>
+                <button onclick="window.print()" class="btn">🖨️ Imprimir</button>
+            </div>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="filter-section">
+            <form method="get">
+                <input type="date" name="startDate" th:value="${startDate}" placeholder="Data Início">
+                <input type="date" name="endDate" th:value="${endDate}" placeholder="Data Fim">
+                <select name="status">
+                    <option value="">Todos os status</option>
+                    <option value="COMPLETED">Concluídas</option>
+                    <option value="PENDING">Pendentes</option>
+                    <option value="CANCELLED">Canceladas</option>
+                </select>
+                <button type="submit" class="btn">Filtrar</button>
+                <a href="/reports/sales" class="btn btn-secondary">Limpar Filtros</a>
+            </form>
+        </div>
+        
+        <!-- Resumo do Período -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <h3>Total de Vendas</h3>
+                <p th:text="${totalSales}">0</p>
+            </div>
+            <div class="summary-card">
+                <h3>Faturamento Total</h3>
+                <p>R$ <span th:text="${#numbers.formatDecimal(totalRevenue, 2, 2)}">0,00</span></p>
+            </div>
+            <div class="summary-card">
+                <h3>Ticket Médio</h3>
+                <p>R$ <span th:text="${totalSales > 0 ? #numbers.formatDecimal(totalRevenue.divide(totalSales), 2, 2) : '0,00'}">0,00</span></p>
+            </div>
+            <div class="summary-card">
+                <h3>Período</h3>
+                <p>
+                    <span th:if="${startDate}" th:text="${#temporals.format(startDate, 'dd/MM/yyyy')}"></span>
+                    <span th:if="${startDate and endDate}"> até </span>
+                    <span th:if="${endDate}" th:text="${#temporals.format(endDate, 'dd/MM/yyyy')}"></span>
+                    <span th:unless="${startDate or endDate}">Todos os registros</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Tabela de Vendas -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Data/Hora</th>
+                        <th>Cliente</th>
+                        <th>Status</th>
+                        <th>Itens</th>
+                        <th>Valor Total</th>
+                        <th>Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sale : ${sales}">
+                        <td th:text="${sale.id}"></td>
+                        <td th:text="${#temporals.format(sale.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td>
+                            <strong th:text="${sale.customerName}"></strong>
+                            <div class="sale-details" th:if="${sale.customerPhone}">
+                                📞 <span th:text="${sale.customerPhone}"></span>
+                            </div>
+                            <div class="sale-details" th:if="${sale.customerEmail}">
+                                ✉️ <span th:text="${sale.customerEmail}"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="sale-status" 
+                                  th:classappend="${sale.status.name().toLowerCase()}"
+                                  th:text="${sale.status.label}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${sale.items.size()}"></span> itens
+                            <div class="sale-details">
+                                <span th:each="item, iterStat : ${sale.items}">
+                                    <span th:text="${item.quantity}"></span>x <span th:text="${item.product.name}"></span>
+                                    <span th:unless="${iterStat.last}">, </span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <strong>R$ <span th:text="${#numbers.formatDecimal(sale.totalAmount, 2, 2)}"></span></strong>
+                        </td>
+                        <td th:text="${sale.observations ?: '-'}"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="font-weight: bold; background-color: #f8f9fa;">
+                        <td colspan="5">TOTAL</td>
+                        <td class="text-right">R$ <span th:text="${#numbers.formatDecimal(totalRevenue, 2, 2)}"></span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div th:if="${sales.size() == 0}" class="empty-state">
+            <h3>Nenhuma venda encontrada</h3>
+            <p>Não há registros de vendas no período selecionado.</p>
+        </div>
+        
+        <div style="margin-top: 20px; text-align: center; color: #666; font-size: 12px;">
+            Relatório gerado em: <span th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm:ss')}"></span>
+        </div>
+    </div>
+</body>
+</html>

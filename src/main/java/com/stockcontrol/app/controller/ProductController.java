@@ -1,7 +1,9 @@
 package com.stockcontrol.app.controller;
 
 import com.stockcontrol.app.model.Product;
+import com.stockcontrol.app.model.Category;
 import com.stockcontrol.app.service.ProductService;
+import com.stockcontrol.app.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public String listProducts(Model model) {
@@ -27,6 +30,7 @@ public class ProductController {
     @GetMapping("/new")
     public String newProductForm(Model model) {
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoryService.findAll());
         return "products/form";
     }
 
@@ -34,6 +38,7 @@ public class ProductController {
     public String createProduct(@Valid @ModelAttribute Product product,
                                RedirectAttributes redirectAttributes) {
         try {
+            productService.save(product);
             redirectAttributes.addFlashAttribute("message", "Produto criado com sucesso!");
             return "redirect:/products";
         } catch (IllegalArgumentException e) {
@@ -44,6 +49,7 @@ public class ProductController {
 
     @GetMapping("/{id}/edit")
     public String editProductForm(@PathVariable Long id, Model model) {
+        model.addAttribute("categories", categoryService.findAll());
         return "products/form";
     }
 
@@ -52,6 +58,7 @@ public class ProductController {
                                @Valid @ModelAttribute Product product,
                                RedirectAttributes redirectAttributes) {
         try {
+            productService.update(id, product);
             redirectAttributes.addFlashAttribute("message", "Produto atualizado com sucesso!");
             return "redirect:/products";
         } catch (IllegalArgumentException e) {
@@ -64,6 +71,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id,
                                RedirectAttributes redirectAttributes) {
         try {
+            productService.delete(id);
             redirectAttributes.addFlashAttribute("message", "Produto excluído com sucesso!");
             return "redirect:/products";
         } catch (Exception e) {

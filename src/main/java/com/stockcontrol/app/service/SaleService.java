@@ -6,7 +6,6 @@ import com.stockcontrol.app.model.Sale.SaleStatus;
 import com.stockcontrol.app.model.SaleItem;
 import com.stockcontrol.app.model.StockMovement;
 import com.stockcontrol.app.repository.SaleRepository;
-import com.stockcontrol.app.repository.SaleItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

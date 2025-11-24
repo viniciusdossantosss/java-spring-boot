@@ -33,7 +33,8 @@ public class UserService {
     }
     
     public User createDefaultAdmin() {
-        if (userRepository.count() == 0) {
+        Optional<User> existingAdmin = userRepository.findByUsername("admin");
+        if (existingAdmin.isEmpty()) {
             User admin = new User();
             admin.setUsername("admin");
             admin.setEmail("admin@stockcontrol.com");
@@ -41,7 +42,7 @@ public class UserService {
             admin.setRole(User.UserRole.ADMIN);
             return userRepository.save(admin);
         }
-        return null;
+        return existingAdmin.get();
     }
     
     public Optional<User> findByUsername(String username) {

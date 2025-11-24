@@ -16,12 +16,8 @@ public class DataInitializer implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-        // Criar usuário admin padrão se não existir
+        // Garantir que usuário admin exista
         User admin = userService.createDefaultAdmin();
-        if (admin != null) {
-            log.info("Usuário admin padrão criado: admin / admin123");
-        } else {
-            log.info("Usuário admin já existe no sistema");
-        }
+        log.info("Usuário admin garantido no sistema: {} (ID: {})", admin.getUsername(), admin.getId());
     }
 }

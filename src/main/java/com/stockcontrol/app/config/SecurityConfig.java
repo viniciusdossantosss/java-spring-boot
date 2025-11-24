@@ -22,14 +22,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/", "/login", "/logout", "/css/**", "/js/**", "/images/**", "/api/debug/**").permitAll()
                 .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/dashboard")
-                .failureUrl("/login?error=true")
-                .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
@@ -37,6 +31,9 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED)
             );
         
         return http.build();

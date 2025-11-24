@@ -1,24 +1,33 @@
 package com.stockcontrol.app.controller;
 
+import com.stockcontrol.app.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
     @GetMapping
-    public String home(Model model) {
-        return "redirect:/dashboard";
+    public String home(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser != null) {
+            return "redirect:/dashboard";
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model) {
+    public String dashboard(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+        
+        model.addAttribute("currentUser", currentUser);
         return "dashboard";
     }
 }

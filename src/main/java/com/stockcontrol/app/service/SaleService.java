@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class SaleService {
     private final SaleRepository saleRepository;
-    private final SaleItemRepository saleItemRepository;
     private final ProductService productService;
     private final StockMovementService stockMovementService;
 
@@ -38,8 +37,7 @@ public class SaleService {
     public Sale save(Sale sale) {
         // Validar produtos e estoque
         for (SaleItem item : sale.getItems()) {
-            Product product = productService.findById(item.getProduct().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado: " + item.getProduct().getId()));
+            Product product = productService.findById(item.getProduct().getId());
             
             if (product.getQuantity() < item.getQuantity()) {
                 throw new IllegalArgumentException("Estoque insuficiente para o produto: " + product.getName());

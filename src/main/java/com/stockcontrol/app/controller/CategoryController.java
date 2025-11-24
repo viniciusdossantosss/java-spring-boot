@@ -45,7 +45,8 @@ public class CategoryController {
 
     @GetMapping("/{id}/edit")
     public String editCategoryForm(@PathVariable Long id, Model model) {
-        Category category = categoryService.findById(id);
+        Category category = categoryService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada: " + id));
         model.addAttribute("category", category);
         return "categories/form";
     }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -93,11 +92,9 @@ public class ReportController {
         chartData.put("productsByCategory", productService.getProductsCountByCategory());
         
         // Movimentações dos últimos 7 dias
-        LocalDateTime sevenDaysAgo = LocalDateTime.now().minusDays(7);
         chartData.put("movementsLast7Days", stockMovementService.getMovementsByLastDays(7));
         
         // Vendas dos últimos 30 dias
-        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minusDays(30);
         chartData.put("salesLast30Days", saleService.getSalesByLastDays(30));
         
         model.addAttribute("chartData", chartData);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.validation.BindingResult;
 
 @Controller
 @RequestMapping("/products")
@@ -35,7 +36,14 @@ public class ProductController {
 
     @PostMapping
     public String createProduct(@Valid @ModelAttribute Product product,
-                               RedirectAttributes redirectAttributes) {
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.findAll());
+            return "products/form";
+        }
+        
         try {
             productService.save(product);
             redirectAttributes.addFlashAttribute("message", "Produto criado com sucesso!");
@@ -55,7 +63,14 @@ public class ProductController {
     @PostMapping("/{id}")
     public String updateProduct(@PathVariable Long id,
                                @Valid @ModelAttribute Product product,
-                               RedirectAttributes redirectAttributes) {
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.findAll());
+            return "products/form";
+        }
+        
         try {
             productService.updateProduct(product);
             redirectAttributes.addFlashAttribute("message", "Produto atualizado com sucesso!");

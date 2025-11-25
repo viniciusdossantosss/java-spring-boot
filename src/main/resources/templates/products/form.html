@@ -89,6 +89,7 @@
             <div class="form-group">
                 <label for="name">Nome do Produto:</label>
                 <input type="text" id="name" th:field="*{name}" required>
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-error"></div>
             </div>
             
             <div class="form-group">
@@ -104,21 +105,25 @@
                             th:value="${cat.id}" 
                             th:text="${cat.name}"></option>
                 </select>
+                <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="alert alert-error"></div>
             </div>
             
             <div class="form-group">
                 <label for="quantity">Quantidade:</label>
                 <input type="number" id="quantity" th:field="*{quantity}" min="0" required>
+                <div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="alert alert-error"></div>
             </div>
             
             <div class="form-group">
                 <label for="price">Preço:</label>
-                <input type="decimal" id="price" th:field="*{price}" min="0" step="0.01" required>
+                <input type="number" id="price" th:field="*{price}" min="0" step="0.01" required>
+                <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="alert alert-error"></div>
             </div>
             
             <div class="form-group">
                 <label for="minQuantity">Quantidade Mínima:</label>
                 <input type="number" id="minQuantity" th:field="*{minQuantity}" min="0">
+                <div th:if="${#fields.hasErrors('minQuantity')}" th:errors="*{minQuantity}" class="alert alert-error"></div>
             </div>
             
             <div class="form-group">
